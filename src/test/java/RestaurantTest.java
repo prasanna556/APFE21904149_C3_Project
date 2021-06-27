@@ -7,7 +7,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -77,4 +81,19 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    @Test
+    public void passing_items_to_calculate_order_value_should_return_total_of_item_prices(){
+        //Arrange
+        List<Item> items = new ArrayList<>();
+        items.add(new Item("Vada pav",40));
+        items.add(new Item("Pav Bhaji",100));
+
+        //Act
+        double calculatedValue = restaurant.calculateOrderValue(items);
+
+        //Assert
+        assertThat(calculatedValue,equalTo(140.0));
+
+    }
 }
